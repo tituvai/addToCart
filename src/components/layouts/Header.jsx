@@ -19,7 +19,7 @@ const Header = () => {
                 <div className="">
                     <ul className='flex items-center gap-x-10'>
                         {[
-                            {name:'Home', path:'home'},
+                            {name:'Home', path:'/'},
                             {name:'Shop', path:'/'},
                             {name:'Service', path:'/'},
                             {name:'About', path:'/'},
