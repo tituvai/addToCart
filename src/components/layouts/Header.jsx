@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom'
 import { IoIosHeart } from "react-icons/io";
 import { FaUser , FaShoppingCart} from "react-icons/fa";
 
+
 const Header = () => {
+
   return (
     <>
     <div className="py-5">
