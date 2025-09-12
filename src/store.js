@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import  addtocart  from './features/cart/addToCart'
+import  addCart  from './features/cart/addToCart'
+import  wishCart  from './features/wishCart/wishSlice'
+
 
 export default configureStore({
   reducer: {
-    cart : addtocart
+    cart : addCart,
+    wish: wishCart
   },
 })

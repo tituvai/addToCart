@@ -1,34 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const addToCart = createSlice({
-  name: 'addToCart',
+  name: 'addCart',
   initialState: {
     value: [],
-    countCart:0,
+    
   },
   reducers: {
-    addtocart: (state, action) => {
+    addCart: (state, action) => {
         let alldata= state.value.find(item=>item.title===action.payload.title)
         if(alldata){
-            alldata.qunatity +=1;
+            alldata.quantity +=1;
+            // state.totalPrice += action.payload.price;
         }else{
-            state.value.push({...action.payload, qunatity:1})
+            state.value.push({...action.payload, quantity:1})
+            // state.totalPrice += action.payload.price;
         }
+    },
+
+    cartIncement:(state, action)=>{
+      state.value.map((item)=>{
+        if(item.title === action.payload.title){
+          item.quantity +=1;
+          // state.totalPrice += action.payload.price;
+        }
+      })
+    },
+     cartDecement:(state, action)=>{
+      state.value.map((item)=>{
+        if(item.title === action.payload.title && item.quantity >1){
+          item.quantity -=1;
+          // state.totalPrice -= action.payload.price;
+        }
+      })
     },
 
     // Cart Count Part 
 
-    cartCount: (state, action) => {
-      state.value.push(action.payload); 
-      state.cartCount += 1; 
-    },
-    resetCartCount: (state) => {
-      state.cartCount = 0;
-    },
+   
   
   },
 })
 
-export const { addtocart, cartCount, resetCartCount } = addToCart.actions
+export const { addCart, cartIncement, cartDecement} = addToCart.actions
 
 export default addToCart.reducer
