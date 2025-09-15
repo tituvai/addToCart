@@ -7,13 +7,16 @@ import { Link } from 'react-router-dom'
 import { IoIosHeart } from "react-icons/io";
 import { FaUser , FaShoppingCart} from "react-icons/fa";
 import Hadding from '../Hadding'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import { MdClear } from "react-icons/md";
+import { removeFromWishCart } from '../../features/wishCart/wishSlice'
+
+
 
 
 const Header = () => {
 
-    const productWish = useSelector((state)=> state.wish.value)
+    const productWish = useSelector((state)=> state.wishCart.value)
 
     // wish on of Button start 
 
@@ -23,6 +26,12 @@ const Header = () => {
        setWishOn(!wishOn) 
     }
     // wish on of Button End
+
+    // remove botton Start 
+    const dispatch = useDispatch()
+
+    
+
 
   return (
     <>
@@ -73,7 +82,8 @@ const Header = () => {
                                 </div>
                                 <div className="flex gap-x-3 items-center">
                                     <button  className='bg-black text-white px-3 py-1.5 text-xs rounded font-semibold cursor-pointer'>Add To Cart</button>
-                                    <MdClear className='cursor-pointer text-gray-500 hover:text-black'/>
+                                    <MdClear onClick={()=>{console.log(item.title);
+                                     dispatch(removeFromWishCart(item.title))}} className='cursor-pointer text-gray-500 hover:text-black'/>
                                 </div>
                             </Flex>
                            ))}

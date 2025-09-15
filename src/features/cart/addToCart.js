@@ -36,12 +36,16 @@ export const addToCart = createSlice({
     },
 
     // Cart Count Part 
-
+    
+    removeBtn:(state, action)=>{
+      state.value= state.value.filter(item=> item.title !== action.payload)
+    }
+    
    
   
   },
 })
 
-export const { addCart, cartIncement, cartDecement} = addToCart.actions
+export const { addCart, cartIncement, cartDecement, removeBtn} = addToCart.actions
 
 export default addToCart.reducer

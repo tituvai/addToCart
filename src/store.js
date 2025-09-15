@@ -6,6 +6,6 @@ import  wishCart  from './features/wishCart/wishSlice'
 export default configureStore({
   reducer: {
     cart : addCart,
-    wish: wishCart
+    wishCart: wishCart
   },
 })
