@@ -14,9 +14,12 @@ import { removeFromWishCart } from '../../features/wishCart/wishSlice'
 
 
 
+
 const Header = () => {
 
     const productWish = useSelector((state)=> state.wishCart.value)
+
+    const totalPrice = productWish.reduce((total, item)=> total + item.quantity, 0)
 
     // wish on of Button start 
 
@@ -30,7 +33,11 @@ const Header = () => {
     // remove botton Start 
     const dispatch = useDispatch()
 
-    
+    // count shopCart Part Start 
+
+    const data = useSelector((state) => state.cart.value);
+ 
+  const totalItems = data.reduce((total, item) => total + item.quantity, 0);
 
 
   return (
@@ -58,7 +65,10 @@ const Header = () => {
                 <div className="">
                     <div className="flex items-center gap-x-10">
                     <div className="relative">
-                        <IoIosHeart onClick={handleWishOn}/> 
+                        <div className="relative">
+                            <IoIosHeart onClick={handleWishOn}/> 
+                            <div className="absolute -top-3 -right-3">{totalPrice}</div>
+                        </div>
                         {wishOn && <div className="w-[500px] p-3  absolute top-6 rounded right-0 bg-stone-200 z-10">
                             <MdClear className='pb-3 size-8 cursor-pointer' onClick={handleWishOn}/>
                             <Flex>
@@ -82,15 +92,17 @@ const Header = () => {
                                 </div>
                                 <div className="flex gap-x-3 items-center">
                                     <button  className='bg-black text-white px-3 py-1.5 text-xs rounded font-semibold cursor-pointer'>Add To Cart</button>
-                                    <MdClear onClick={()=>{console.log(item.title);
-                                     dispatch(removeFromWishCart(item.title))}} className='cursor-pointer text-gray-500 hover:text-black'/>
+                                    <MdClear onClick={()=>{ dispatch(removeFromWishCart(item.title))}} className='cursor-pointer text-gray-500 hover:text-black'/>
                                 </div>
                             </Flex>
                            ))}
                         </div>}
                     </div>
                     <FaUser/>
-                    <Link to={'/cart'}><FaShoppingCart/></Link>
+                    <div className="relative">
+                        <Link to={'/cart'}><FaShoppingCart/></Link>
+                        <div className=" absolute -top-3 -right-2 flex justify-center items-center font-semibold">{totalItems}</div>
+                    </div>
                     </div>
                 </div>
             </Flex>

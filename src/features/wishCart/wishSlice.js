@@ -4,6 +4,7 @@ export const wishSlice = createSlice({
   name: 'wishCart',
   initialState: {
     value: [],
+
   },
   reducers: {
     wishCart: (state, action)=>{
