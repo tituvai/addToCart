@@ -10,6 +10,7 @@ import Hadding from '../Hadding'
 import {useDispatch, useSelector } from 'react-redux'
 import { MdClear } from "react-icons/md";
 import { removeFromWishCart } from '../../features/wishCart/wishSlice'
+import { addCart } from '../../features/cart/addToCart'
 
 
 
@@ -39,6 +40,11 @@ const Header = () => {
  
   const totalItems = data.reduce((total, item) => total + item.quantity, 0);
 
+//   Add To Cart 
+
+const handleAddToCart = (productCart)=>{
+    dispatch(addCart({title:productCart.title, price:productCart.price, img:productCart.img}))   
+}
 
   return (
     <>
@@ -81,8 +87,8 @@ const Header = () => {
                             </Flex>
 
 
-                           {productWish.map((item)=>(
-                            <Flex className={'bg-white rounded my-2 py-2'}>
+                           {productWish.map((item, index)=>(
+                            <Flex key={index} className={'bg-white rounded my-2 py-2'}>
                                 <div className="flex items-center gap-x-2 w-[270px]">
                                     <img className='w-10' src={item.img}/>
                                     <Hadding className={'text-sm text-black font-medium'} text={item.title} as={'h5'}/>
@@ -91,7 +97,7 @@ const Header = () => {
                                     <Hadding className={'text-sm text-black font-medium'} text={item.price} as={'h5'}/>
                                 </div>
                                 <div className="flex gap-x-3 items-center">
-                                    <button  className='bg-black text-white px-3 py-1.5 text-xs rounded font-semibold cursor-pointer'>Add To Cart</button>
+                                    <button onClick={()=>(handleAddToCart(item))} className='bg-black text-white px-3 py-1.5 text-xs rounded font-semibold cursor-pointer'>Add To Cart</button>
                                     <MdClear onClick={()=>{ dispatch(removeFromWishCart(item.title))}} className='cursor-pointer text-gray-500 hover:text-black'/>
                                 </div>
                             </Flex>

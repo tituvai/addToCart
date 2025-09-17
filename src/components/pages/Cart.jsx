@@ -11,6 +11,9 @@ import { MdClear } from "react-icons/md";
 const Cart = () => {
      const data = useSelector((state) => state.cart.value)
 
+     const product = useSelector((state)=> state.productDetelis.value)
+     const wish = useSelector((state)=> state.wishCart.value)
+
      let dispatch = useDispatch()
 
     // total Price 
@@ -35,12 +38,13 @@ const Cart = () => {
                         <Hadding className={'text-base text-black font-semibold'} text={'Total'} as={'h5'}/>
                     </div>
                 </Flex>
-                {data.map((item)=>(
+                {wish && product && data.map((item)=>(
                     <Flex>
                        <div className="w-[40%]">
                          <div className=" flex items-center gap-x-3">
                             <img className='w-20' src={item.img} />
                             <Hadding text={item.title} as={'h3'}/>
+                            <Hadding text={item.color} as={'h3'}/>
                         </div>
                        </div>
                         <div className="w-[20%] text-end">

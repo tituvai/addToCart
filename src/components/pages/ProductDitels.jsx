@@ -7,9 +7,14 @@ import { FaAngleRight } from "react-icons/fa6";
 import { FaStar, FaStarHalf } from "react-icons/fa6";
 import Image from '../Image'
 import Hadding from '../Hadding'
+import { addCart } from '../../features/cart/addToCart'
 
 
 const ProductDitels = () => {
+
+     const [selectedColor, setSelectedColor] = useState(''); // কালার সিলেকশন
+//   const [selectedSize, setSelectedSize] = useState('S');
+  const dispatch = useDispatch()
       // count Downt Part Start 
 
     const [count, setCount] = useState(1)
@@ -34,6 +39,16 @@ const ProductDitels = () => {
       </Container>
     );
   }
+
+//   Add To Cart Part Start 
+
+ // কার্টে যোগ করা
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addCart({ title: product.title, img: product.img, price: product.price, color:selectedColor}));
+      
+    }
+  };
    
   return (
     <>
@@ -68,15 +83,20 @@ const ProductDitels = () => {
                     </Flex>
                     <Flex className={'gap-x-3 py-5 border-b-1 border-borderC mb-4'}>
                         <del className='text-base text-menuC'>{'34.5'}</del>
-                        <Hadding className={'text-xl font-bold text-hoverC'} text={'yuuuyuuy'} as={'h6'}/>
+                        <Hadding className={'text-xl font-bold text-hoverC'} text={product.price} as={'h6'}/>
                     </Flex>
                     <Flex className={'gap-x-3 py-7'}>
                         <Hadding className={'text-base text-hoverC font-bold leading-6 uppercase pr-8'} text={'COLOR:'} as={'h4'}/>
-                        <div className="w-[20px] h-[20px] scale-95 hover:scale-115 rounded-full bg-[#000000]"></div>
-                        <div className="w-[20px] h-[20px] scale-95 hover:scale-115 rounded-full bg-[#FF8686]"></div>
-                        <div className="w-[20px] h-[20px] scale-95 hover:scale-115 rounded-full bg-[#7ED321]"></div>
-                        <div className="w-[20px] h-[20px] scale-95 hover:scale-115 rounded-full bg-[#B6B6B6]"></div>
-                        <div className="w-[20px] h-[20px] scale-95 hover:scale-115 rounded-full bg-[#15CBA5]"></div>
+                        {['#000000', '#FF8686', '#7ED321', '#B6B6B6', '#15CBA5'].map((color) => (
+                            <div
+                            key={color}
+                            className={`w-[20px] h-[20px] rounded-full cursor-pointer ${
+                                selectedColor === color ? 'ring-2 ring-offset-2 ring-hoverC' : ''
+                            }`}
+                            style={{ backgroundColor: color }}
+                            onClick={() => setSelectedColor(color)}
+                            ></div>
+                        ))}
                     </Flex>
                     <Flex className={'gap-x-17'}>
                        <Hadding className={'text-base text-hoverC font-bold leading-6 uppercase'} text={'SIZE:'} as={'h4'}/> 
@@ -101,7 +121,7 @@ const ProductDitels = () => {
                     </Flex>
                     <div className="py-7 border-b-1 border-borderC">
                         <Link to={'/'}><button className={'text-white bg-black ml-5 py-2 px-5 rounded'}>Add to Wish List</button></Link>
-                        <Link to={'/'}><button className={'text-white bg-black ml-5 py-2 px-5 rounded'}>add To cart</button></Link>
+                        <button onClick={handleAddToCart} className={'text-white bg-black ml-5 py-2 px-5 rounded'}>add To cart</button>
                     </div>
                     <Flex className={'justify-between py-7 border-b-1 border-borderC'}>
                         <Hadding className={'text-base text-hoverC font-bold leading-6'} text={'FEATURES  & DETAILS'} as={'h6'}/>
